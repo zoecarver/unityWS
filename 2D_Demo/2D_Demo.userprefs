@@ -1,8 +1,8 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/SocketIOScript.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/ws_script.cs">
     <Files>
-      <File FileName="Assets/SocketIOScript.cs" Line="17" Column="1" />
+      <File FileName="Assets/ws_script.cs" Line="40" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
