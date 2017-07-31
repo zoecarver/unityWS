@@ -14,7 +14,7 @@ You can find some wonderful documentation on how to set up websocket servers usi
 1) Make sure that you have [unity beta](https://unity3d.com/unity/beta) >= `2017.2.0b4` installed.
 2) Open **edit** -> **project settings** -> **player** then scroll down to **Scripting Runtime Version** and change it to **Experimental (.NET 4.6)** and when prompted click re-start.
 3) Click **Assets** -> **import new asset...** and then select `.../Librarys/*` and click **import**.
-4) Create the client script that will connect, send and receive messages using the How-To, or use the example one in `.../Scripts/ws_script.cs`.
+4) Create the client script that will connect, send and receive messages using the [How-To](https://github.com/pudility/unityWS#how-to-write-the-unity-client), or use the example one in `.../Scripts/ws_script.cs`.
 5) Add your script to an empty Game Object.
 6) Thats it! If you used the example script you should see that it is sending/receiving data in the console.
 
@@ -30,7 +30,7 @@ This is the trickier part. If you looked over the example script (which I sugges
 
 Basically after you have created your C# script in unity, change `void` to `IEnumerator` before Start. And we can actually delete the Update function because we will not be using that.
 
-Instead of update you will use an always true while loop. The reason for this is because if you put our connection code inside of the Update function you would have to reconnect every time, and as you can imagine this would be problematic. So you can go ahead and add this inside of your Start function:
+Instead of update you will use an always true while loop. The reason for this is because if you put your connection code inside of the Update function you would have to reconnect every time, and as you can imagine this would be problematic. So you can go ahead and add this inside of your Start function:
 
 ```
 while (true) {
@@ -43,17 +43,17 @@ Now for the fun part; connecting to the server. Above the while loop place `WebS
 Right now our script looks like this:
 ```
 IEnumerator Start ()
-	{
-		WebSocket w = new WebSocket (new Uri ("ws://localhost:8000"));
-		yield return StartCoroutine (w.Connect ());
-		w.SendString ("START");
+{
+  WebSocket w = new WebSocket (new Uri ("ws://localhost:8000"));
+  yield return StartCoroutine (w.Connect ());
+  w.SendString ("START");
 
-    while (true) {
+  while (true) {
 
-    }
-
-    w.Close ();
   }
+
+  w.Close ();
+}
 ```
 Currently your script can send the word "START" to our server. If you want, try it out! (It is very satisfying to watch your unity project send something to a server and see it pop up in the terminal). But we will want our project to do more than just send "START", so lets add some code that allows your project to receive messages. Inside of your while loop add the following:
 ```
