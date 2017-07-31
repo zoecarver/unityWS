@@ -1,0 +1,14 @@
+{
+  "name": "unityserver",
+  "version": "1.0.0",
+  "description": "a server for the unity websocket example I am working on",
+  "main": "ws.js",
+  "scripts": {
+    "test": "npm testme"
+  },
+  "keywords": [
+    "unity"
+  ],
+  "author": "zoe",
+  "license": "ISC"
+}
