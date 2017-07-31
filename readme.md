@@ -13,7 +13,7 @@ You can find some wonderful documentation on how to set up websocket servers usi
 ### Unity
 1) make sure that you have unity beta installed.
 2) open **edit** -> **project settings** -> **player** then scroll down to **Scripting Runtime Version** and change it to **Experimental (.NET 4.6)** and when prompted click re-start.
-3) click **Assets** -> **import new asset...** and then select `.../Librarys/*` (`*` = everything in it) and click import.
+3) click **Assets** -> **import new asset...** and then select `.../Librarys/*` and click **import**.
 4) create the script, or use the example one in `.../Scripts/ws_script.cs`.
 5) add your script to an empty game object.
 6) thats it! If you used the example script you should see that it is sending/receiving data in the console.
