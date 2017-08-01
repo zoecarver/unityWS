@@ -9,7 +9,7 @@ Open the project that we worked on [last time](https://github.com/pudility/unity
 
 In your scene create a capsule and rename it "Player" then add a Rigidbody to it. Make sure you freeze the rotation under **Constraints**. Now create a script called PlayerController and add it to your player. Now drag your player into the project window to make it a prefab.
 
-Open your PlayerController script for editing and add the following (feel free to write your own player controller script, the only thing it needs to do is move the player).
+Open your PlayerController script for editing and add the following (feel free to write your own PlayerController script, the only thing it needs to do is move the player).
 
 ```
 public int force = 10;
@@ -41,7 +41,7 @@ if ((int)((Time.time % 60) * NetworkSpeed) >= x) {
 	x++;
 }
 ```
-What this does is checks to see how long it has been since it last sent an update to the server and then, depending on how long it has been, might send the server some data. For example, if `NetworkSpeed` is set to 1, it will send data every 1 second.
+ This checks to see how long it has been since it last sent an update to the server and then, depending on how long it has been, might send the server some data. For example, if `NetworkSpeed` is set to 1, it will send data every 1 second.
 
 #### Sending data
 
@@ -49,7 +49,7 @@ As you know from the last tutorial you can send something to the server with `w.
 `w.SendString (GameObject.Find ("Player").transform.position.ToString ());`
 this sends the position of our player to the server.
 
-Now if you start up the server from last time and run the project you will see that the players position is sent and received.
+Now if you start up the server from [last time](https://github.com/pudility/unityWS) and run the project you will see that the players position has sent and received.
 
 But if you are going to have more than one player, you will have to give each player an ID. For this change `w.SendString ("START");` to the following in your ws_script.
 ```
@@ -66,13 +66,13 @@ myPlayer.name = myId;
 ```
 This Instantiates our player and changes its name to the id we created above.
 
-Finally change `GameObject.Find ("Player")` to `GameObject.Find (myId)`. So that you send **your** players position.
+Finally, change `GameObject.Find ("Player")` to `GameObject.Find (myId)`. So that you send **your** players position.
 
-Now just add the player prefab to the ws_GameObject in the inspector, delete the player from the scene and click play. You should see the player instantiate and you should see the position show up in the console.
+Now just add the player prefab to the ws_GameObject in the inspector, delete the player from the scene, and click play. You should see the player instantiate and the position show up in the console.
 
 #### Updating the server script
 
-Open ws.js for editing. In order for Untiy to move the player it will need two pieces of data, one is what player to move and the other is where to move it. The best way to do this will be to use an object. In the server script change `clients[i].send(message);` to :
+Open ws.js for editing. In order for Untiy to move the player it will need two pieces of data, one is which player to move and the other is where to move it. The best way to do this will be to use an object. In the server script change `clients[i].send(message);` to :
 ```
 clients[i].send(
   JSON.stringify({
@@ -95,7 +95,7 @@ public class ChatData
 	public string position;
 };
 ```
-and add a private ChatData variable called pos (or whatever you want) like this: `private ChatData pos;`.
+Add a private ChatData variable called pos (or whatever you want) like this: `private ChatData pos;`.
 
 You can set the value of the object by adding this code after you `Debug.Log` the reply:
 ```
@@ -325,4 +325,4 @@ public class PlayerController : MonoBehaviour
 }
 ```
 
-Thanks  for reading, if you have any issues or questions feel free to submit an issue. The full source is available in the repository.
+Thanks for reading, feel free to submit any issues or questions. The full source is available in this repository.
