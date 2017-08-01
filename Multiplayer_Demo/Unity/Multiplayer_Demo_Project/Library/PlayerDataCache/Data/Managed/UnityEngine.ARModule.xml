@@ -1,0 +1,760 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<doc>
+  <members>
+    <assembly>
+      <name>UnityEngine.ARModule</name>
+    </assembly>
+    <member name="T:UnityEngine.XR.ARBackgroundRenderer">
+      <summary>
+        <para>Class used to override a camera's default background rendering path to instead render a given Texture and/or Material. This will typically be used with images from the color camera for rendering the AR background on mobile devices.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.XR.ARBackgroundRenderer.backgroundMaterial">
+      <summary>
+        <para>The Material used for AR rendering.</para>
+      </summary>
+    </member>
+    <member name="?:UnityEngine.XR.ARBackgroundRenderer.backgroundRendererChanged(System.Action)">
+      <summary>
+        <para>Called when any of the public properties of this class have been changed.</para>
+      </summary>
+      <param name="value"></param>
+    </member>
+    <member name="P:UnityEngine.XR.ARBackgroundRenderer.backgroundTexture">
+      <summary>
+        <para>An optional Texture used for AR rendering. If this property is not set then the texture set in XR.ARBackgroundRenderer._backgroundMaterial as "_MainTex" is used.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.XR.ARBackgroundRenderer.camera">
+      <summary>
+        <para>An optional Camera whose background rendering will be overridden by this class. If this property is not set then the main Camera in the scene is used.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.XR.ARBackgroundRenderer.mode">
+      <summary>
+        <para>When set to XR.ARRenderMode.StandardBackground (default) the camera is not overridden to display the background image. Setting this property to XR.ARRenderMode.MaterialAsBackground will render the texture specified by XR.ARBackgroundRenderer._backgroundMaterial and or XR.ARBackgroundRenderer._backgroundTexture as the background.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEngine.XR.ARBackgroundRenderer.DisableARBackgroundRendering">
+      <summary>
+        <para>Disables AR background rendering. This method is called internally but can be overridden by users who wish to subclass XR.ARBackgroundRenderer to customize handling of AR background rendering.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.XR.ARRenderMode">
+      <summary>
+        <para>Enumeration describing the AR rendering mode used with XR.ARBackgroundRenderer.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.ARRenderMode.MaterialAsBackground">
+      <summary>
+        <para>The material associated with XR.ARBackgroundRenderer is being rendered as the background.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.ARRenderMode.StandardBackground">
+      <summary>
+        <para>The standard background is rendered. (Skybox, Solid Color, etc.)</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.XR.Tango.AreaLearningMode">
+      <summary>
+        <para>Enumeration of valid area learning modes.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.AreaLearningMode.CloudAreaDescription">
+      <summary>
+        <para>Origin of the immediately previous device pose.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.AreaLearningMode.LocalAreaDescription">
+      <summary>
+        <para>An area description is to be loaded with area learning enabled.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.AreaLearningMode.LocalAreaDescriptionWithoutLearning">
+      <summary>
+        <para>An area description is to be loaded with area learning disabled.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.XR.Tango.CoordinateFrame">
+      <summary>
+        <para>Enumeration of coordinate frames used when querying Tango for pose information.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.CoordinateFrame.AreaDescription">
+      <summary>
+        <para>Origin within a saved area description.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.CoordinateFrame.CameraColor">
+      <summary>
+        <para>Color camera.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.CoordinateFrame.CameraDepth">
+      <summary>
+        <para>Depth camera.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.CoordinateFrame.CameraFisheye">
+      <summary>
+        <para>Fisheye camera.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.CoordinateFrame.Device">
+      <summary>
+        <para>Device coordinate frame.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.CoordinateFrame.Display">
+      <summary>
+        <para>Display.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.CoordinateFrame.IMU">
+      <summary>
+        <para>Inertial Measurement Unit.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.CoordinateFrame.MaxCoordinateFrameType">
+      <summary>
+        <para>Maximum allowed.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.CoordinateFrame.PreviousDevicePose">
+      <summary>
+        <para>Origin of the immediately previous device pose.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.CoordinateFrame.StartOfService">
+      <summary>
+        <para>Origin when the device started tracking.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.CoordinateFrame.UUID">
+      <summary>
+        <para>Tango unique ID.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.XR.Tango.CoordinateFramePair">
+      <summary>
+        <para>Struct containing a pair of XR.Tango.CoordinateFrame: a base and a target.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.CoordinateFramePair.baseFrame">
+      <summary>
+        <para>Base XR.Tango.CoordinateFrame.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.CoordinateFramePair.targetFrame">
+      <summary>
+        <para>Target XR.Tango.CoordinateFrame.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.XR.Tango.GridIndex">
+      <summary>
+        <para>
+                The three integers (i, j, k) are used to uniquely refer to a mesh segment (voxel cell). This struct is typically used in conjunction with 3D mesh reconstruction to specify which voxel cell should be generated.
+
+                See Also: MeshReconstructionServer, MeshReconstructionServerComponent, TangoSpatialMapper
+            </para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.GridIndex.i">
+      <summary>
+        <para>
+                    The first integer.
+                </para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.GridIndex.j">
+      <summary>
+        <para>
+                    The second integer.
+                </para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.GridIndex.k">
+      <summary>
+        <para>
+                    The third integer.
+                </para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.XR.Tango.ImageData">
+      <summary>
+        <para>Struct containing the attributes of a Tango image.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.ImageData.data">
+      <summary>
+        <para>Pixels in the format of this image buffer.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.ImageData.exposureDurationNs">
+      <summary>
+        <para>Exposure duration of this image in nanoseconds.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.ImageData.format">
+      <summary>
+        <para>Pixel format of the data.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.ImageData.frameNumber">
+      <summary>
+        <para>The frame number of this image.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.ImageData.height">
+      <summary>
+        <para>The height of the image data.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.ImageData.stride">
+      <summary>
+        <para>The number of pixels per scanline of the data image.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.ImageData.timestamp">
+      <summary>
+        <para>The timestamp of this image.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.ImageData.width">
+      <summary>
+        <para>The width of the image data.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.XR.Tango.Marshal">
+      <summary>
+        <para>Helper class that aids in efficient marshaling of Tango collections.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEngine.XR.Tango.Marshal.ExtractArrayFromList">
+      <summary>
+        <para>Efficiently convert a List to a System.Array.</para>
+      </summary>
+      <param name="list">List of data to be extracted.</param>
+      <returns>
+        <para>List contents returned as System.Array.</para>
+      </returns>
+    </member>
+    <member name="T:UnityEngine.XR.Tango.MeshReconstructionConfig">
+      <summary>
+        <para>
+                Configuration parameters for 3D mesh reconstruction.
+
+                See Also: MeshReconstructionServer, MeshReconstructionServerComponent, TangoSpatialMapper
+            </para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.MeshReconstructionConfig.generateColor">
+      <summary>
+        <para>When true, sets vertex colors based on image data from the color camera. Default is true.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.MeshReconstructionConfig.maxDepth">
+      <summary>
+        <para>The maximum distance in meters from the depth camera from which meshes will be generated. Default is 3.50 meters.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.MeshReconstructionConfig.minDepth">
+      <summary>
+        <para>The minimum distance in meters from the depth camera from which meshes will be generated. Default is 0.6 meters.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.MeshReconstructionConfig.minNumVertices">
+      <summary>
+        <para>The minimum number of vertices that every connected component in the mesh should consist of. Defaults to 1. Smaller components (typically noise) will be deleted.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.MeshReconstructionConfig.resolution">
+      <summary>
+        <para>The mesh reconstruction resolution in meters. Default is 0.03 meters (3 centimeters).</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.MeshReconstructionConfig.updateMethod">
+      <summary>
+        <para>The algorithm used during mesh generation. See UpdateMethod.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.MeshReconstructionConfig.useParallelIntegration">
+      <summary>
+        <para>When true, will use multi-threading for the reconstruction updates. Default is false.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.MeshReconstructionConfig.useSpaceClearing">
+      <summary>
+        <para>When true, will clear away free space along the depth observations. If enabled, 3D reconstruction will create higher quality meshes at a cost to performance. Default is false.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.XR.Tango.MeshReconstructionServer">
+      <summary>
+        <para>
+                Represents a context for 3D mesh reconstruction, initialized with a MeshReconstructionConfig. You may have multiple servers with different parameters.
+            </para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.XR.Tango.MeshReconstructionServer.enabled">
+      <summary>
+        <para>
+                    Get or set whether the reconstruction server is enabled.
+                </para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.XR.Tango.MeshReconstructionServer.generationRequests">
+      <summary>
+        <para>The number of active generation requests</para>
+      </summary>
+    </member>
+    <member name="M:UnityEngine.XR.Tango.MeshReconstructionServer.ClearMeshes">
+      <summary>
+        <para>Removes all generated meshes from the reconstruction server.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEngine.XR.Tango.MeshReconstructionServer.#ctor">
+      <summary>
+        <para>
+                    Construct a reconstruction server from a MeshReconstructionConfig.
+                </para>
+      </summary>
+    </member>
+    <member name="M:UnityEngine.XR.Tango.MeshReconstructionServer.Dispose">
+      <summary>
+        <para>Call Dispose when the reconstruction server is no longer needed. This will ensure that the object is cleaned up appropriately but will not affect any meshes, components, or objects generated by MeshReconstructionServer.GenerateSegmentAsync.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEngine.XR.Tango.MeshReconstructionServer.GenerateSegmentAsync(UnityEngine.XR.Tango.SegmentGenerationRequest,UnityEngine.XR.Tango.MeshReconstructionServer/SegmentReadyDelegate)">
+      <summary>
+        <para>Call this to start the process of generating mesh data for the specified mesh segment. The mesh is typically ready by the next frame, but may take multiple frames to create. The generated mesh will be delivered through the specified MeshReconstructionServer.SegmentReadyDelegate.</para>
+      </summary>
+      <param name="request">A SegmentGenerationRequest used to generate the specified segment.</param>
+      <param name="onSegmentReady">Delegate called when the generation of this segment is complete.</param>
+    </member>
+    <member name="M:UnityEngine.XR.Tango.MeshReconstructionServer.GetChangedSegments(UnityEngine.XR.Tango.MeshReconstructionServer/SegmentChangedDelegate)">
+      <summary>
+        <para>Query for updated or added mesh segments.</para>
+      </summary>
+      <param name="onSegmentChanged">Delegate to call for each changed mesh segment.</param>
+    </member>
+    <member name="M:UnityEngine.XR.Tango.MeshReconstructionServer.GetNativeReconstructionContext">
+      <summary>
+        <para>Get the native reconstruction context pointer from the Tango API.</para>
+      </summary>
+      <returns>
+        <para>IntPtr representing the native pointer to the Tango server context.</para>
+      </returns>
+    </member>
+    <member name="T:UnityEngine.XR.Tango.MeshReconstructionServer.SegmentChangedDelegate">
+      <summary>
+        <para>Delegate supplied to MeshReconstructionServer.GetChangedSegments that will be called for each mesh segment that has changed since the last call to MeshReconstructionServer.GetChangedSegments.</para>
+      </summary>
+      <param name="gridIndex">The GridIndex of the mesh segment which changed.</param>
+      <param name="changeType">The SegmentChange type.</param>
+      <param name="updateTime">A timestamp of the change, represented in seconds since application statup.</param>
+    </member>
+    <member name="T:UnityEngine.XR.Tango.MeshReconstructionServer.SegmentReadyDelegate">
+      <summary>
+        <para>Delegate to be called when a mesh segment has been generated following a call to MeshReconstructionServer.GenerateSegmentAsync.</para>
+      </summary>
+      <param name="generatedSegmentData">A SegmentGenerationResult representing the mesh that was generated.</param>
+    </member>
+    <member name="T:UnityEngine.XR.Tango.PointCloudData">
+      <summary>
+        <para>Struct containing point cloud data returned from Tango APIs.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.PointCloudData.points">
+      <summary>
+        <para>List of Vector4 point cloud data in the format x, y, z, c. C is a confidence factor for the point between 0.0 and 1.0 where 1.0 represents very high confidence.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.PointCloudData.timestamp">
+      <summary>
+        <para>Timestamp of the point cloud data, in seconds.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.XR.Tango.PoseData">
+      <summary>
+        <para>Struct containing pose data returned from Tango APIs.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.PoseData.frame">
+      <summary>
+        <para>The pair of coordinate frames for this pose.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.PoseData.orientation_w">
+      <summary>
+        <para>Orientation quaternion w component.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.PoseData.orientation_x">
+      <summary>
+        <para>Orientation quaternion x component.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.PoseData.orientation_y">
+      <summary>
+        <para>Orientation quaternion y component.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.PoseData.orientation_z">
+      <summary>
+        <para>Orientation quaternion z component.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.XR.Tango.PoseData.position">
+      <summary>
+        <para>Returns the translational part of the XR.Tango.PoseData by converting the double precision values (PoseData.translation_x, PoseData.translation_y, PoseData.translation_z) to a Vector3.</para>
+      </summary>
+      <returns>
+        <para>A Vector3 representing the position of the pose.</para>
+      </returns>
+    </member>
+    <member name="P:UnityEngine.XR.Tango.PoseData.rotation">
+      <summary>
+        <para>Returns the rotational part of the XR.Tango.PoseData by converting the double precision values (PoseData.orientation_x, PoseData.orientation_y, PoseData.orientation_z, PoseData.orientation_w) to a Quaternion.</para>
+      </summary>
+      <returns>
+        <para>A Quaternion representing the orientation of the pose.</para>
+      </returns>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.PoseData.statusCode">
+      <summary>
+        <para>The status of the requested pose.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.PoseData.timestamp">
+      <summary>
+        <para>Timestamp of the pose, in seconds.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.PoseData.translation_x">
+      <summary>
+        <para>Translation vector x component.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.PoseData.translation_y">
+      <summary>
+        <para>Translation vector y component.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.PoseData.translation_z">
+      <summary>
+        <para>Translation vector z component.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.XR.Tango.PoseStatus">
+      <summary>
+        <para>Status of a pose queried from the Tango API.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.PoseStatus.Initializing">
+      <summary>
+        <para>Motion estimation is being initialized.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.PoseStatus.Invalid">
+      <summary>
+        <para>The pose of this estimate is not valid.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.PoseStatus.Unknown">
+      <summary>
+        <para>Could not estimate pose at this time.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.PoseStatus.Valid">
+      <summary>
+        <para>The pose of this estimate is valid.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.XR.Tango.SegmentChange">
+      <summary>
+        <para>Enumeration of segment change types for Tango. These enums are used to indicate the depth camera has detected a change in mesh segment.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.SegmentChange.Added">
+      <summary>
+        <para>A mesh segment has been added and may now be generated.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.SegmentChange.Updated">
+      <summary>
+        <para>An existing mesh segment has been updated and requires regeneration.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.XR.Tango.SegmentGenerationRequest">
+      <summary>
+        <para>
+                Represents a request to generate a specific mesh segment.
+            </para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.SegmentGenerationRequest.destinationMeshCollider">
+      <summary>
+        <para>
+                    The MeshCollider to write the resulting collision mesh to. SegmentGenerationRequest.providePhysics must also be set to true.
+                </para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.SegmentGenerationRequest.destinationMeshFilter">
+      <summary>
+        <para>
+                    The MeshFilter component into which the resulting triangle mesh will be written to.
+                </para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.SegmentGenerationRequest.gridIndex">
+      <summary>
+        <para>
+                    The GridIndex you wish to generate.
+                </para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.SegmentGenerationRequest.provideColors">
+      <summary>
+        <para>
+                    If true, colors will be written to the MeshFilter using the color camera. MeshReconstructionConfig.generateColor must also be enabled.
+                </para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.SegmentGenerationRequest.provideNormals">
+      <summary>
+        <para>
+                    If true, normals will be written to the MeshFilter.
+                </para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.SegmentGenerationRequest.providePhysics">
+      <summary>
+        <para>
+                    If true, a collision mesh will be generated and written to the provided SegmentGenerationRequest.destinationMeshCollider.
+                </para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.XR.Tango.SegmentGenerationResult">
+      <summary>
+        <para>
+                Represents the result of a mesh generation operation.
+            </para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.SegmentGenerationResult.elapsedTimeSeconds">
+      <summary>
+        <para>
+                    The number of seconds spent generating this mesh segment (including the collision mesh).
+                </para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.SegmentGenerationResult.gridIndex">
+      <summary>
+        <para>
+                    The GridIndex that was generated.
+                </para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.SegmentGenerationResult.meshCollider">
+      <summary>
+        <para>
+                    The MeshCollider to which the resulting collision mesh was written to, if requested.
+                </para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.SegmentGenerationResult.meshFilter">
+      <summary>
+        <para>
+                    The MeshFilter component into which the triangle mesh was written to.
+                </para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.SegmentGenerationResult.success">
+      <summary>
+        <para>
+                    True if the mesh was successfully generated and written to the supplied component(s).
+                </para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.XR.Tango.TangoConfig">
+      <summary>
+        <para>Allows script code to setup a connection to Tango.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.XR.Tango.TangoConfig.areaLearningMode">
+      <summary>
+        <para>Set the area learning mode for the Tango application using one of the values in XR.Tango.AreaLearningMode.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.XR.Tango.TangoConfig.enableColorCamera">
+      <summary>
+        <para>Set to TRUE if your Tango app requires use of the color camera.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.XR.Tango.TangoConfig.enableDepth">
+      <summary>
+        <para>Set to TRUE if your Tango app requires depth sensing.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.XR.Tango.TangoConfig.enableMotionTracking">
+      <summary>
+        <para>Set to TRUE if your Tango app requires motion tracking.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEngine.XR.Tango.TangoConfig.AddConfigParameter">
+      <summary>
+        <para>Allows users to set an arbitrary Tango configuration parameter as defined by the Google's Tango API. This capability allows users to experiment with atypical Tango configuration parameters not available via the properties of this class.</para>
+      </summary>
+      <param name="name">The name of the raw configuration parameter to be set.</param>
+      <param name="value">The value of the raw configuration parameter to be set.</param>
+    </member>
+    <member name="M:UnityEngine.XR.Tango.TangoConfig.RemoveConfigParameter">
+      <summary>
+        <para></para>
+      </summary>
+      <param name="name">The name of the raw configuration parameter to be removed.</param>
+    </member>
+    <member name="T:UnityEngine.XR.Tango.TangoDevice">
+      <summary>
+        <para>Class which provides a high-level abstraction of the Tango API.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.XR.Tango.TangoDevice.areaDescriptionUUID">
+      <summary>
+        <para>The area description UUID to be used when a connection to Tango is made with XR.Tango.AreaLearningMode.LocalAreaDescriptionWithoutLearning or XR.Tango.AreaLearningMode.LocalAreaDescription is specified in XR.Tango.TangoConfig.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.XR.Tango.TangoDevice.backgroundRenderer">
+      <summary>
+        <para>The XR.ARBackgroundRenderer associated with the Tango device. One of these objects must be set when rendering the color camera image as the background for AR experiences.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.XR.Tango.TangoDevice.baseCoordinateFrame">
+      <summary>
+        <para>Get or set the XR.Tango.CoordinateFrame to which poses are relative in the TrackedPoseDriver.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.XR.Tango.TangoDevice.depthCameraRate">
+      <summary>
+        <para>The frame rate of the depth camera. Setting this value to 0 disables acquisistion of depth data.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.XR.Tango.TangoDevice.isServiceConnected">
+      <summary>
+        <para>Returns TRUE if the Tango service is currently connected.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.XR.Tango.TangoDevice.synchronizeFramerateWithColorCamera">
+      <summary>
+        <para>When set to TRUE and the AR background is being rendered the Unity framerate is limited to the depth camera framerate.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEngine.XR.Tango.TangoDevice.Connect">
+      <summary>
+        <para>Connects the XR.Tango.TangoDevice Tango service.</para>
+      </summary>
+      <param name="config">The XR.Tango.TangoConfig object that defines Tango service connection.</param>
+      <returns>
+        <para>TRUE if the connection to the Tango service was successful.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.XR.Tango.TangoDevice.Disconnect">
+      <summary>
+        <para>Disconnects the XR.Tango.TangoDevice from the Tango service.</para>
+      </summary>
+      <param name="name">The name of the raw configuration parameter to be removed.</param>
+    </member>
+    <member name="M:UnityEngine.XR.Tango.TangoDevice.TryGetHorizontalFov">
+      <summary>
+        <para>Attempts to retrieve the horizontal field of view for the Tango color camera.</para>
+      </summary>
+      <param name="fovOut">Retrieved field of view value.</param>
+      <returns>
+        <para>TRUE if the horizontal field of view is successfully retrieved.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.XR.Tango.TangoDevice.TryGetLatestImageData">
+      <summary>
+        <para>Attempts to retrieve latest color image data using the Tango API.</para>
+      </summary>
+      <param name="imageData">Retrieved color image data.</param>
+      <returns>
+        <para>TRUE if the image data is successfully retrieved.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.XR.Tango.TangoDevice.TryGetLatestPointCloud">
+      <summary>
+        <para>Attempts to retrieve point cloud data using the Tango API.</para>
+      </summary>
+      <param name="baseFrame">Base XR.Tango.CoordinateFrame to use for the query.</param>
+      <param name="targetFrame">Target XR.Tango.CoordinateFrame to use for the query.</param>
+      <param name="pointCloudData">Retrieved point cloud data.</param>
+      <returns>
+        <para>TRUE if the point cloud data is successfully retrieved.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.XR.Tango.TangoDevice.TryGetVerticalFov">
+      <summary>
+        <para>Attempts to retrieve the vertical field of view for the Tango color camera.</para>
+      </summary>
+      <param name="fovOut">Retrieved field of view value.</param>
+      <returns>
+        <para>TRUE if the vertical field of view is successfully retrieved.</para>
+      </returns>
+    </member>
+    <member name="T:UnityEngine.XR.Tango.TangoInputTracking">
+      <summary>
+        <para>Class which provides low-level methods for tracking Tango devices and their components in arbitrary coordinate frames.</para>
+      </summary>
+    </member>
+    <member name="?:UnityEngine.XR.Tango.TangoInputTracking.trackingAcquired(System.Action`1&lt;UnityEngine.XR.Tango.CoordinateFrame&gt;)">
+      <summary>
+        <para>Fires when tracking for a particular XR.Tango.CoordinateFrame is acquired.</para>
+      </summary>
+      <param name="value"></param>
+    </member>
+    <member name="?:UnityEngine.XR.Tango.TangoInputTracking.trackingLost(System.Action`1&lt;UnityEngine.XR.Tango.CoordinateFrame&gt;)">
+      <summary>
+        <para>Fires when tracking for a particular XR.Tango.CoordinateFrame is lost.</para>
+      </summary>
+      <param name="value"></param>
+    </member>
+    <member name="M:UnityEngine.XR.Tango.TangoInputTracking.TryGetPoseAtTime">
+      <summary>
+        <para>Retrieves pose information for the target coordinate frame with respect to the base coordinate frame. See XR.Tango.CoordinateFrame for additional information about the available coordinate frames.</para>
+      </summary>
+      <param name="baseFrame">The basis coordinate frame. In typical use cases this is XR.Tango.CoordinateFrame.StartOfService.</param>
+      <param name="targetFrame">The component of the phone in which we are interested in retrieving pose data.</param>
+      <param name="pose">The returned pose data - unchanged .</param>
+      <param name="time">The time in seconds since the app was started. A value of 0.0f provides the pose at the current time.</param>
+      <returns>
+        <para>TRUE if the pose was successfully retrieved.</para>
+      </returns>
+    </member>
+    <member name="T:UnityEngine.XR.Tango.UpdateMethod">
+      <summary>
+        <para>
+                Enumeration of 3D Reconstruction algorithm types.
+            </para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.UpdateMethod.Projective">
+      <summary>
+        <para>
+                    Associates voxels with depth readings by projecting voxels into a depth image plane using a projection matrix.
+
+                    This method results in slightly lower reconstruction quality, but the speed of updates is independent of the number of depth points.
+                </para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.XR.Tango.UpdateMethod.Traversal">
+      <summary>
+        <para>
+                    Associates voxels with depth readings by traversing (raycasting) forward from the camera to the observed depth.
+
+                    This method results in slightly higher reconstruction quality, but it can be significantly slower, especially on updates with a high number of depth points. This is the default method.
+                </para>
+      </summary>
+    </member>
+  </members>
+</doc>
