@@ -324,3 +324,5 @@ public class PlayerController : MonoBehaviour
 	}
 }
 ```
+
+Thanks  for reading, if you have any issues or questions feel free to submit an issue. The full source is available in the repository.
