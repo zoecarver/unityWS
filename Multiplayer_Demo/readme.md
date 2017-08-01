@@ -9,7 +9,7 @@ Open the project that we worked on [last time](https://github.com/pudility/unity
 
 In your scene create a capsule and rename it "Player" then add a Rigidbody to it. Make sure you freeze the rotation under **Constraints**. Now create a script called PlayerController and add it to your player. Now drag your player into the project window to make it a prefab.
 
-Now open your PlayerController script for editing and add the following (feel free to write your own player controller script, the only thing it needs to do is move the player).
+Open your PlayerController script for editing and add the following (feel free to write your own player controller script, the only thing it needs to do is move the player).
 
 ```
 public int force = 10;
@@ -34,7 +34,7 @@ void FixedUpdate ()
 
 ### Networking
 
-Now open the ws_script we worked on earlier. Add three variables `public int NetworkSpeed = 5;`, `private int x = 0;`, and `private int currentTime;`. Next, inside of our `while (true)` loop add this code:
+Open the ws_script we worked on earlier. Add three variables `public int NetworkSpeed = 5;`, `private int x = 0;`, and `private int currentTime;`. Next, inside of our `while (true)` loop add this code:
 ```
 if ((int)((Time.time % 60) * NetworkSpeed) >= x) {
   //we will send data to the server here
@@ -68,11 +68,11 @@ This Instantiates our player and changes its name to the id we created above.
 
 Finally change `GameObject.Find ("Player")` to `GameObject.Find (myId)`. So that you send **your** players position.
 
-Now just add the player prefab to the ws_GameObject in the inspector, delete the player from the scene and click play. It should see the player instantiate and you should see the position show up in the console.
+Now just add the player prefab to the ws_GameObject in the inspector, delete the player from the scene and click play. You should see the player instantiate and you should see the position show up in the console.
 
 #### Updating the server script
 
-Open the ws.js for editing. In order for Untiy to move the player it will need two pieces of data, one is what player to move and the other is where to move it. The best way to do this will be to use an object. In the server script change `clients[i].send(message);` to :
+Open ws.js for editing. In order for Untiy to move the player it will need two pieces of data, one is what player to move and the other is where to move it. The best way to do this will be to use an object. In the server script change `clients[i].send(message);` to :
 ```
 clients[i].send(
   JSON.stringify({
@@ -87,7 +87,7 @@ this splits our message into the first bit (the position) and the second bit (th
 
 Now we actually have to receive the strings and turn them back into objects. For this we can use [this library](https://github.com/JamesNK/Newtonsoft.Json) you can find a copy of it in the `.../Multiplayer_Demo/Librarys`. So go ahead and import that in Unity.
 
-Then import it in your ws_script with `using Newtonsoft.Json;`. Then you can create a public class to hold your data like this:
+Then include it in your ws_script with `using Newtonsoft.Json;`. Now you can create a public class to hold your data, like this:
 ```
 public class ChatData
 {
@@ -157,3 +157,170 @@ Finally add `+ "_" + myId` to where we send the server our position so that it l
 `w.SendString (GameObject.Find (myId).transform.position.ToString () + "_" + myId);`
 
 Now you can start up the server then go back to unity, build/run the project and run it in the editor, you should see two different players that can move independently of each other.
+
+Here are the full scripts:
+
+### ws.js
+(Node.JS)
+```
+const WebSocket = require('ws');
+
+const wss = new WebSocket.Server({ port: 8000 }, () => {
+  console.log('listening on 8000');
+});
+
+var clients = [];
+
+wss.on('connection', function connection(ws) {
+  console.log("CONNECTION");
+
+  clients.push(ws);
+
+  ws.on('message', function incoming(message) {
+    console.log('received: %s', message);
+
+    for (var i = 0; i < clients.length; i++) {
+
+      if(clients[i].readyState === 1){
+        clients[i].send(
+          JSON.stringify({
+            position: message.toString().split("_")[0],
+            id: message.toString().split("_")[1]
+          })
+        );
+      }
+
+    }
+  });
+});
+```
+
+### ws_script.cs
+(Unity)
+```
+using System.Collections;
+using UnityEngine;
+using System;
+using Newtonsoft.Json;
+
+public class ChatData
+{
+	public string id;
+	public string position;
+};
+
+public class ws_script : MonoBehaviour
+{
+	public GameObject player;
+	public int NetworkSpeed = 5;
+	public string ip = "localhost";
+	public string port = "8000";
+
+	private ChatData pos;
+	private int x = 0;
+	private int currentTime;
+
+	IEnumerator Start ()
+	{
+		WebSocket w = new WebSocket (new Uri ("ws://" + ip + ":" + port));
+		yield return StartCoroutine (w.Connect ());
+		string myId = UnityEngine.Random.Range (0.0f, 1000000.0f).ToString ();
+		w.SendString ("START_" + myId);
+
+		var myPlayer = Instantiate (player, new Vector3 (0, 10, 0), Quaternion.identity);
+		myPlayer.name = myId;
+
+		while (true) {
+			if ((int)((Time.time % 60) * NetworkSpeed) >= x) {
+				w.SendString (GameObject.Find (myId).transform.position.ToString () + "_" + myId);
+				x++;
+			}
+
+			string reply = w.RecvString ();
+			if (reply != null) {
+				Debug.Log (reply);
+				string str = reply.ToString ();
+				pos = JsonConvert.DeserializeObject<ChatData> (str);
+
+				if (pos.id != myId) {
+					if (GameObject.Find (pos.id)) {
+						//the player exists
+						GameObject.Find (pos.id).transform.position = StringToVector3 (pos.position);
+					} else {
+						//the player does not exist we must instanciate it
+						if (pos.position == "START") {
+							//checking if it is START if so we don't need to do anything
+							Debug.Log ("START");
+						} else {
+							//instantiating the player
+							var otherplayer = Instantiate (player, StringToVector3 (pos.position), Quaternion.identity);
+							//renaming them
+							otherplayer.name = pos.id;
+							//removing components
+							otherplayer.GetComponent <PlayerController> ().enabled = false;
+							otherplayer.GetComponent <Rigidbody> ().isKinematic = true;
+						}
+					}
+				}
+
+			}
+			if (w.error != null) {
+				Debug.LogError ("Error: " + w.error);
+				break;
+			}
+			yield return 0;
+		}
+		w.Close ();
+	}
+
+	public static Vector3 StringToVector3 (string sVector)
+	{
+		// Remove the parentheses
+		if (sVector.StartsWith ("(") && sVector.EndsWith (")")) {
+			sVector = sVector.Substring (1, sVector.Length - 2);
+		}
+
+		// split the items
+		string[] sArray = sVector.Split (',');
+
+		// store as a Vector3
+		Vector3 result = new Vector3 (
+			                 float.Parse (sArray [0]),
+			                 float.Parse (sArray [1]),
+			                 float.Parse (sArray [2]));
+
+		return result;
+	}
+}
+```
+
+### PlayerController.cs
+(Unity)
+
+```
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerController : MonoBehaviour
+{
+	public int force = 10;
+
+	private Rigidbody rigidBody;
+
+	void Start ()
+	{
+		rigidBody = GetComponent<Rigidbody> ();
+	}
+
+	void FixedUpdate ()
+	{
+		float horizontalForce = Input.GetAxis ("Horizontal");
+		float verticalForce = Input.GetAxis ("Vertical");
+
+		Vector3 movement = new Vector3 (horizontalForce, 0.0f, verticalForce);
+
+		rigidBody.AddForce (movement * force);
+	}
+}
+```
